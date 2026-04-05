@@ -194,7 +194,7 @@ export class Campaign implements ICampaign {
       const durationMs = result.durationMs;
       const durationMinutes = durationMs / 60_000;
 
-      // Accumulate usage
+      
       this.dailyMinutesUsed += durationMinutes;
 
       this.activeCalls--;
@@ -203,7 +203,7 @@ export class Campaign implements ICampaign {
       if (result.answered) {
         customer.succeeded = true;
       } else {
-        // Failed — schedule retry or mark permanent failure
+  
         if (customer.retriesUsed < this.config.maxRetries) {
           customer.retriesUsed++;
           this.scheduleRetry(idx);
@@ -212,7 +212,6 @@ export class Campaign implements ICampaign {
         }
       }
 
-      // A slot freed — try to fill it
       this.tick();
     });
   }
